@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Page</title>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            color: #263445;
+        }
+
+        header {
+            background: #243b55;
+            color: white;
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        header h1 {
+            font-size: 36px;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px #00000012;
+        }
+
+        h2 {
+            color: #243b55;
+        }
+
+        button {
+            background: #2878b5;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 8px 5px 8px 0;
+        }
+
+        button:hover {
+            background: #15527e;
+        }
+
+        #extra {
+            display: none;
+            padding: 15px;
+            background: #e8f2fa;
+            border-radius: 8px;
+        }
+
+        pre {
+            background: #edf1f5;
+            padding: 15px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        footer {
+            background: #243b55;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>My Personal Page</h1>
+        <p>Welcome to My Website</p>
+    </header>
+
+    <main>
+
+        <section>
+            <h2>About Me</h2>
+            <p>Hello! I am a university student learning
+            Frontend Web Development.</p>
+            <p>This is my personal webpage created with HTML5,
+            CSS, JSON, Ajax and jQuery.</p>
+        </section>
+
+        <section>
+            <h2>My Learning</h2>
+            <p>Technologies I am learning:</p>
+            <ul>
+                <li>HTML5</li>
+                <li>CSS</li>
+                <li>Git and GitHub</li>
+                <li>JSON</li>
+                <li>Ajax</li>
+                <li>jQuery</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>jQuery Interaction</h2>
+            <button id="showBtn">Show More</button>
+
+            <div id="extra">
+                <p>This content is displayed using jQuery!</p>
+                <p>jQuery makes webpage interaction easier.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>JSON Data</h2>
+            <p>Example of personal information stored in JSON:</p>
+            <pre id="jsonData"></pre>
+        </section>
+
+        <section>
+            <h2>Ajax Data Loading</h2>
+            <p>Click the button to load data from an external API.</p>
+            <button id="loadBtn">Load Data</button>
+            <div id="result">Waiting for data...</div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>My Personal Page | 2026</p>
+        <p>Created with HTML5, CSS and jQuery</p>
+    </footer>
+
+    <script>
+        // JSON data
+        const student = {
+            name: "My Personal Page",
+            subject: "Frontend Development",
+            skills: ["HTML5", "CSS", "JSON", "Ajax", "jQuery"]
+        };
+
+        $("#jsonData").text(
+            JSON.stringify(student, null, 2)
+        );
+
+        // jQuery interaction
+        $("#showBtn").click(function() {
+            $("#extra").slideToggle();
+        });
+
+        // Ajax request
+        $("#loadBtn").click(function() {
+            $("#result").text("Loading...");
+
+            $.ajax({
+                url: "https://jsonplaceholder.typicode.com/users/1",
+                method: "GET",
+                dataType: "json",
+
+                success: function(data) {
+                    $("#result").html(
+                        "<p><strong>Name:</strong> " +
+                        $("<div>").text(data.name).html() +
+                        "</p><p><strong>Email:</strong> " +
+                        $("<div>").text(data.email).html() +
+                        "</p>"
+                    );
+                },
+
+                error: function() {
+                    $("#result").text(
+                        "Unable to load data. Please try again."
+                    );
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
